@@ -1,0 +1,36 @@
+service: knitting-server
+frameworkVersion: '3'
+useDotenv: true
+
+plugins:
+  - serverless-dotenv-plugin
+  - serverless-plugin-typescript
+  - serverless-offline
+
+provider:
+  name: aws
+  stage: prod
+  runtime: nodejs16.x
+  region: ap-northeast-2
+  deploymentPrefix: serverless-prod
+  deploymentBucket:
+    name: knitting-server
+  httpApi:
+    name: knitting-server-API
+    metrics: true
+    cors: true
+
+custom:
+  serverless-offline:
+    httpPort: 3001 # API 포트
+    lambdaPort: 3002 # 람다 포트
+
+
+functions:
+  auth:
+    name: knitting-server-prod
+    handler: src/lambda.handler
+    events:
+      - http:
+          method: any
+          path: /{proxy+}

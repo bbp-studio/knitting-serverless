@@ -9,6 +9,7 @@ import { ExpressAdapter } from '@nestjs/platform-express';
 import { AppModule } from './app.module';
 import { ResponseInterceptor } from './common/response/response.interceptor';
 import { AllExceptionsFilter } from './core/filter/all-exception.filter';
+import { setupSwagger } from './core/swagger/swagger.config';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const express = require('express');
@@ -34,6 +35,7 @@ async function bootstrapServer(): Promise<Server> {
     app.setGlobalPrefix('api');
     app.useGlobalInterceptors(new ResponseInterceptor());
     app.useGlobalFilters(new AllExceptionsFilter());
+    setupSwagger(app);
 
     await app.init();
     cachedServer = createServer(expressApp, undefined, binaryMimeTypes);

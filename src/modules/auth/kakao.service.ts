@@ -1,17 +1,17 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { AuthorizationCodeAccessDeniedException } from './exception/authorization-code-access-denied.exception';
-import { OauthCallbackResponse } from './dto/oauth-callback.response';
-import { TokenResponse } from '../../common/token/token.response';
-import { KakaoClient } from './kakao.client';
-import { UserRepository } from '../user/user.repository';
-import { OauthType, UserEntity } from '../user/user.entity';
-import { TokenService } from '../../common/token/token.service';
+import { TokenExpiredError } from 'jsonwebtoken';
+import { KnittingNotFoundException } from '../../common/exception/knitting-not-found.exception';
 import { AccessTokenClaims } from '../../common/token/access-token-claims';
 import { Token } from '../../common/token/token';
-import { TokenExpiredError } from 'jsonwebtoken';
-import { InvalidAccessTokenException } from './exception/invalid-access-token.exception';
+import { TokenResponse } from '../../common/token/token.response';
+import { TokenService } from '../../common/token/token.service';
+import { OauthType, UserEntity } from '../user/user.entity';
+import { UserRepository } from '../user/user.repository';
 import { LoginResponse } from './dto/login.response';
-import { KnittingNotFoundException } from '../../common/exception/knitting-not-found.exception';
+import { OauthCallbackResponse } from './dto/oauth-callback.response';
+import { AuthorizationCodeAccessDeniedException } from './exception/authorization-code-access-denied.exception';
+import { InvalidAccessTokenException } from './exception/invalid-access-token.exception';
+import { KakaoClient } from './kakao.client';
 
 @Injectable()
 export class KakaoService {
@@ -121,6 +121,8 @@ export class KakaoService {
         if (response.refreshToken) {
           user.refreshToken = response.refreshToken;
         }
+
+        await this.userRepository.save(user);
 
         new AccessTokenClaims(user.oauthId, user.oauthType);
       }

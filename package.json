@@ -25,6 +25,7 @@
     "@nestjs/config": "^3.0.0",
     "@nestjs/core": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
+    "@nestjs/swagger": "^7.0.1",
     "@types/jsonwebtoken": "^9.0.2",
     "aws-serverless-express": "^3.4.0",
     "axios": "^1.4.0",
@@ -35,7 +36,8 @@
     "jsonwebtoken": "^9.0.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0",
-    "serverless-offline-dotenv": "^0.4.1"
+    "serverless-offline-dotenv": "^0.4.1",
+    "swagger-ui-express": "^4.6.3"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",

@@ -1,12 +1,37 @@
-import { OauthType, UserEntity } from '../../user/user.entity';
+import { ApiProperty } from '@nestjs/swagger';
 import { Token } from '../../../common/token/token';
+import { OauthType, UserEntity } from '../../user/user.entity';
 
 export class LoginResponse {
+  @ApiProperty({
+    description: '이름',
+    example: '콜라',
+  })
   name: string;
+  @ApiProperty({
+    description: '휴대폰번호',
+    example: '010-1234-5678',
+  })
   phone: string;
+  @ApiProperty({
+    description: '이름',
+    example: 'KAKAO',
+  })
   oauthType: OauthType;
+  @ApiProperty({
+    description: '이름',
+    example: '1234567890',
+  })
   oauthId: string;
+  @ApiProperty({
+    description: '이름',
+    example: '콜라',
+  })
   oauthNickname: string;
+  @ApiProperty({
+    description: '이름',
+    example: '1234567890',
+  })
   accessToken: Token;
 
   constructor(

@@ -4,6 +4,7 @@ import * as dotenv from 'dotenv';
 import { AppModule } from './app.module';
 import { ResponseInterceptor } from './common/response/response.interceptor';
 import { AllExceptionsFilter } from './core/filter/all-exception.filter';
+import { setupSwagger } from './core/swagger/swagger.config';
 
 dotenv.config();
 
@@ -25,6 +26,9 @@ async function bootstrap() {
     app.setGlobalPrefix('api');
   }
 
+  setupSwagger(app);
+
   await app.listen(3001);
 }
+
 bootstrap();
